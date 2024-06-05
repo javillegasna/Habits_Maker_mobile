@@ -1,0 +1,129 @@
+@startuml Reations
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+entity users{
+* id: TEXT <PK> "ULID"
+--
+* user_name: TEXT
+* email: TEXT
+* Password: TEXT
+--
+image: BLOB
+}
+
+entity identities{
+* id: TEXT <PK> "ULID"
+* user_id: TEXT <FK>
+* identity_type_id: NUMBER <FK>
+--
+* name: TEXT
+--
+sumary: TEXT
+}
+
+enum identity_types{
+* id: NUMBER <PK>
+--
+* type: TEXT
+* description: TEXT
+* value: NUMBER
+}
+
+entity enviroments{
+* id: TEXT <PK> "ULID"
+* user_id: TEXT <FK>
+--
+* name: TEXT
+intention: TEXT
+photo: BLOB
+status: NUMBER
+}
+
+entity areas{
+* id: TEXT <PK> "ULID"
+* enviroment_id <FK>
+--
+name
+photo: BLOB
+purpose: TEXT
+status: NUMBER
+}
+
+entity habits {
+* id: TEXT <PK> "ULID"
+* trigger_id: TEXT <FK>
+* reward_id: TEXT <FK>
+--
+* name: TEXT
+* trend: TEXT
+* reafirmation_counter: NUMBER
+}
+
+enum habit_types{
+* id: TEXT <PK> "ULID"
+--
+* type: TEXT
+* description: TEXT
+* value: NUMBER
+}
+
+entity flows{
+* rutine_id: TEXT "ULID"
+* identity_id: TEXT <FK>
+* habit_id <FK>
+--
+* index: NUMBER
+}
+
+entity rutine{
+* id: TEXT "ULID"
+* objective: TEXT
+status: NUMBER
+}
+
+entity triggers{
+* id: TEXT <PK> "ULID"
+--
+signal: TEXT
+desire: TEXT
+}
+
+entity rewards{
+* id: TEXT <PK> "ULID"
+--
+* result: TEXT
+* action: TEXT
+}
+
+entity metrics{
+* id: NUMBER AUTO INCREMENT
+* habit_id: TEXT
+--
+* timestamp: TEXT
+* duration: NUMBER
+* tipe_units_id: NUMBER
+}
+
+enum time_units{
+* id: TEXT <PK> "ULID"
+--
+* simbol: TEXT
+* name: TEXT
+* value_in_seconds: NUMBER
+}
+
+users ||--o{ identities
+users ||--o{ enviroments
+enviroments  ||--|{ areas
+identities ||--o{ flows
+identities ||--|| identity_types
+flows }|--|| habits
+flows ||--|| rutine
+habits ||--|{ areas
+habits ||--|| habit_types
+habits ||--|| triggers
+habits ||--|| rewards
+metrics }|--o| habits
+metrics ||-|| time_units
+@enduml
