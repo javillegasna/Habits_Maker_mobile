@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:habit_maker/src/sample_feature/sample_item_details_view.dart';
-import 'package:habit_maker/src/sample_feature/sample_item_list_view.dart';
-import 'package:habit_maker/src/settings/settings_controller.dart';
-import 'package:habit_maker/src/settings/settings_view.dart';
+import 'package:habit_maker/src/features/sample_feature/sample_item_details_view.dart';
+import 'package:habit_maker/src/features/sample_feature/sample_item_list_view.dart';
+import 'package:habit_maker/src/features/settings/settings_controller.dart';
+import 'package:habit_maker/src/features/settings/settings_view.dart';
 
 class AppRouter {
   const AppRouter({
