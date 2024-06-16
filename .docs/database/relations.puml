@@ -3,7 +3,7 @@
 !includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
 
 entity users{
-* id: TEXT <PK> "ULID"
+* id: TEXT <PK> INTEGER
 --
 * user_name: TEXT
 * email: TEXT
@@ -13,13 +13,13 @@ image: BLOB
 }
 
 entity identities{
-* id: TEXT <PK> "ULID"
+* id: TEXT <PK> INTEGER
 * user_id: TEXT <FK>
 * identity_type_id: NUMBER <FK>
 --
 * name: TEXT
 --
-sumary: TEXT
+summary: TEXT
 }
 
 enum identity_types{
@@ -30,28 +30,28 @@ enum identity_types{
 * value: NUMBER
 }
 
-entity enviroments{
-* id: TEXT <PK> "ULID"
+entity environments{
+* id: TEXT <PK> INTEGER
 * user_id: TEXT <FK>
 --
 * name: TEXT
 intention: TEXT
 photo: BLOB
-status: NUMBER
+distribution_status: NUMBER
 }
 
 entity areas{
-* id: TEXT <PK> "ULID"
+* id: TEXT <PK> INTEGER
 * enviroment_id <FK>
 --
 name
 photo: BLOB
 purpose: TEXT
-status: NUMBER
+usage_status: NUMBER
 }
 
 entity habits {
-* id: TEXT <PK> "ULID"
+* id: TEXT <PK> INTEGER
 * trigger_id: TEXT <FK>
 * reward_id: TEXT <FK>
 --
@@ -61,7 +61,7 @@ entity habits {
 }
 
 enum habit_types{
-* id: TEXT <PK> "ULID"
+* id: TEXT <PK> INTEGER
 --
 * type: TEXT
 * description: TEXT
@@ -69,34 +69,34 @@ enum habit_types{
 }
 
 entity flows{
-* rutine_id: TEXT "ULID"
+* routine_id: TEXT INTEGER
 * identity_id: TEXT <FK>
 * habit_id <FK>
 --
-* index: NUMBER
+* habit_position: NUMBER
 }
 
-entity rutine{
-* id: TEXT "ULID"
+entity routines{
+* id: TEXT INTEGER
 * objective: TEXT
-status: NUMBER
+healthy_status: NUMBER
 }
 
-entity triggers{
-* id: TEXT <PK> "ULID"
+entity habit_triggers{
+* id: TEXT <PK> INTEGER
 --
 signal: TEXT
 desire: TEXT
 }
 
-entity rewards{
-* id: TEXT <PK> "ULID"
+entity habit_rewards{
+* id: TEXT <PK> INTEGER
 --
 * result: TEXT
 * action: TEXT
 }
 
-entity metrics{
+entity habit_trackers{
 * id: NUMBER AUTO INCREMENT
 * habit_id: TEXT
 --
@@ -106,7 +106,7 @@ entity metrics{
 }
 
 enum time_units{
-* id: TEXT <PK> "ULID"
+* id: TEXT <PK> INTEGER
 --
 * simbol: TEXT
 * name: TEXT
@@ -114,16 +114,16 @@ enum time_units{
 }
 
 users ||--o{ identities
-users ||--o{ enviroments
-enviroments  ||--|{ areas
+users ||--o{ environments
+environments  ||--|{ areas
 identities ||--o{ flows
 identities ||--|| identity_types
 flows }|--|| habits
-flows ||--|| rutine
-habits ||--|{ areas
+flows ||--|| routines
+habits ||--|| areas
 habits ||--|| habit_types
-habits ||--|| triggers
-habits ||--|| rewards
-metrics }|--o| habits
-metrics ||-|| time_units
+habits ||--|| habit_triggers
+habits ||--|| habit_rewards
+habit_trackers }|--o| habits
+habit_trackers ||-|| time_units
 @enduml
