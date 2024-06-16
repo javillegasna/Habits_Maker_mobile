@@ -4,7 +4,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:habit_maker/src/app_router.dart';
 import 'package:habit_maker/src/localization/l10n.dart';
 
-import 'settings/settings_controller.dart';
+import 'features/settings/settings_controller.dart';
 
 /// The Widget that configures your application.
 class MyApp extends StatelessWidget {
