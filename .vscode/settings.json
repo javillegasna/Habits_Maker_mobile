@@ -1,3 +1,10 @@
 {
-  "cmake.configureOnOpen": false
+  "cmake.configureOnOpen": false,
+  "conventionalCommits.scopes": [
+    "database",
+    "schema",
+  ],
+  "cSpell.words": [
+    "sqlite"
+  ]
 }
